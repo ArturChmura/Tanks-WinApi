@@ -366,7 +366,7 @@ char top10filename[10] = "top10.txt";
 std::vector<int> wyniki;
 int FPS = 160;
 bool PAUSE = false;
-int time = 0, mp_roundtime = 60;
+int timePassed = 0, mp_roundtime = 60;
 bool isGameOn = false;
 
 items item = items::coin;
@@ -599,8 +599,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		if (wParam == 7) // 1/sec
 		{
-			time++;
-			if (time == mp_roundtime)
+			timePassed++;
+			if (timePassed == mp_roundtime)
 			{
 				gameOver();
 			}
@@ -852,7 +852,7 @@ LRESULT CALLBACK WndProcStats(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		rc.left = rcWidth2 - 70;
 		rc.right = rcWidth2 + 70;
 		FillRect(hdc, &rc, greybrush);
-		wsprintf(TimeString, _T("TIME:\n%4d\nRound Time: %d"), time, mp_roundtime);
+		wsprintf(TimeString, _T("TIME:\n%4d\nRound Time: %d"), timePassed, mp_roundtime);
 		DrawText(hdc, TimeString, -1, &rc, DT_CENTER);
 
 
@@ -1761,7 +1761,7 @@ void startNewGame()
 {
 	PAUSE = false;
 	isGameOn = true;
-	time = 0;
+	timePassed = 0;
 	players[0] = player(0, tankRad, tankRad, 100, 20, 0, baseSpeed + 10, baseDamage - 10, direction::right);
 	players[1] = player(1, WINDOWWIDTH - tankRad, WINDOWHEIGHT - tankRad, 100, 20, 0, baseSpeed, baseDamage + 10, direction::right);
 	InvalidateRect(hWndMain, 0, true);
@@ -1798,7 +1798,7 @@ void printWinner(int winner)
 void gameOver()
 {
 	isGameOn = false;
-	time = 0;
+	timePassed = 0;
 	if (players[0].points > players[1].points) winner = 1;
 	else if (players[0].points < players[1].points) winner = 2;
 	else winner = 0;
