@@ -5,3 +5,4 @@
 * Collect ammo
 * Plater with most points wins
 * Top 10 to show top 10 scores
+* ![plot](./Screenshot_1.png)
